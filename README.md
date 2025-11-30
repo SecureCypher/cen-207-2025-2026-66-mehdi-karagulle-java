@@ -2,6 +2,7 @@
 
 # Overview
 
+
 You will generate eclipse maven project with Junit4 from CLI and. Also you will generate jar and then you will run your application. For more information you can check examples [Maven – Maven in 5 Minutes](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) and [TheNEXUS | A Community Project](https://books.sonatype.com/mvnref-book/reference/index.html)
 
 ## Releases
@@ -710,23 +711,33 @@ public class CalculatorAppTest {
     <scm>
         <url>https://github.com/ucoruh/eclipse-java-maven-template</url>
     </scm>
-    <inceptionYear>2023</inceptionYear>
+    <inceptionYear>2025</inceptionYear>
     <developers>
         <developer>
             <name>Asst. Prof. Dr. Ugur CORUH</name>
             <organization>RTEU</organization>
             <email>ugur.coruh@erdogan.edu.tr</email>
             <roles>
+                <role>Owner this class</role>
+                <role>teacher</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Mehdi KARAGULLE</name>
+            <organization>RTEU</organization>
+            <email>muhammedmehdi_karagulle24@erdogan.edu.tr</email>
+            <roles>
                 <role>Developer</role>
                 <role>Designer</role>
             </roles>
         </developer>
         <developer>
-            <name>Other Person</name>
+            <name>Ibrahim DEMIRCI</name>
             <organization>RTEU</organization>
-            <email>mail@gmail.com</email>
+            <email>ibrahim_demirci24@erdogan.edu.tr</email>
             <roles>
                 <role>Developer</role>
+                <role>Designer</role>
             </roles>
         </developer>
     </developers>
@@ -736,16 +747,25 @@ public class CalculatorAppTest {
             <email>ugur.coruh@erdogan.edu.tr</email>
             <organization>RTEU</organization>
             <roles>
+                <role>Owner this class</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Mehdi KARAGULLE</name>
+            <organization>RTEU</organization>
+            <email>muhammedmehdi_karagulle24@erdogan.edu.tr</email>
+            <roles>
                 <role>Developer</role>
                 <role>Designer</role>
             </roles>
         </contributor>
         <contributor>
-            <name>Other Person</name>
+            <name>Ibrahim DEMIRCI</name>
             <organization>RTEU</organization>
-            <email>mail@gmail.com</email>
+            <email>ibrahim_demirci24@erdogan.edu.tr</email>
             <roles>
                 <role>Developer</role>
+                <role>Designer</role>
             </roles>
         </contributor>
     </contributors>
@@ -757,7 +777,7 @@ public class CalculatorAppTest {
     <!-- Environment Settings -->
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/ucoruh/eclipse-java-maven-template</url>
+        <url>https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-cpp</url>
     </issueManagement>
     <ciManagement>
         <system>Github</system>
@@ -770,25 +790,25 @@ public class CalculatorAppTest {
                 <sendOnWarning>true</sendOnWarning>
             </notifier>
         </notifiers>
-        <url>https://github.com/ucoruh/eclipse-java-maven-template</url>
+        <url>https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-cpp</url>
     </ciManagement>
     <repositories>
         <repository>
             <id>eclipse-java-maven-template</id>
             <name>eclipse-java-maven-template</name>
-            <url>https://github.com/ucoruh/eclipse-java-maven-template</url>
+            <url>https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-cpp</url>
         </repository>
     </repositories>
     <distributionManagement>
         <site>
-            <name>https://github.com/ucoruh/eclipse-java-maven-template</name>
+            <name>https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-cpp</name>
             <id>eclipse-java-maven-template</id>
         </site>
-        <downloadUrl>https://github.com/ucoruh/eclipse-java-maven-template</downloadUrl>
+        <downloadUrl>https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-cpp</downloadUrl>
         <repository>
             <id>eclipse-java-maven-template</id>
             <name>eclipse-java-maven-template</name>
-            <url>https://github.com/ucoruh/eclipse-java-maven-template</url>
+            <url>https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-cpp</url>
         </repository>
     </distributionManagement>
     <properties>
