@@ -16,30 +16,31 @@
 	<scm>
 		<url>https://github.com/ucoruh/eclipse-java-maven-template</url>
 	</scm>
-	<inceptionYear>2023</inceptionYear>
+	<inceptionYear>2025</inceptionYear>
 	<developers>
 		<developer>
-			<name>Asst. Prof. Dr. Ugur CORUH</name>
+			<name>İbrahim Demirci</name>
 			<organization>RTEU</organization>
-			<email>ugur.coruh@erdogan.edu.tr</email>
+			<email>ibrahim_demirci24@erdogan.edu.tr</email>
 			<roles>
 				<role>Developer</role>
 				<role>Designer</role>
 			</roles>
 		</developer>
 		<developer>
-			<name>Other Person</name>
+			<name>Muhammed Mehdi Karagülle</name>
 			<organization>RTEU</organization>
-			<email>mail@gmail.com</email>
+			<email>muhammedmehdi_karagulle24@erdogan.edu.tr</email>
 			<roles>
 				<role>Developer</role>
+				<role>Designer</role>
 			</roles>
 		</developer>
 	</developers>
 	<contributors>
 		<contributor>
-			<name>Asst. Prof. Dr. Ugur CORUH</name>
-			<email>ugur.coruh@erdogan.edu.tr</email>
+			<name>İbrahim Demirci</name>
+			<email>ibrahim_demirci24@erdogan.edu.tr</email>
 			<organization>RTEU</organization>
 			<roles>
 				<role>Developer</role>
@@ -47,11 +48,12 @@
 			</roles>
 		</contributor>
 		<contributor>
-			<name>Other Person</name>
+			<name>Muhammed Mehdi Karagülle</name>
 			<organization>RTEU</organization>
-			<email>mail@gmail.com</email>
+			<email>muhammedmehdi_karagulle24@erdogan.edu.tr</email>
 			<roles>
 				<role>Developer</role>
+				<role>Designer</role>
 			</roles>
 		</contributor>
 	</contributors>

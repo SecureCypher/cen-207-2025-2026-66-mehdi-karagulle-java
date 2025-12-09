@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.ibrahim.mehdi.gymmanager.gymmanager;
+
 /**
 
 @class gymmanagerTest
@@ -53,18 +55,6 @@ public class gymmanagerTest {
    */
   @After
   public void tearDown() throws Exception {
-  }
-
-  /**
-   * @brief Test method to validate the addition operation.
-   *
-   * @details This method creates an instance of the gymmanager class and calls the `add` method with two integers. It asserts the expected result of the addition operation.
-   */
-  @Test
-  public void testAddition() {
-    gymmanager gymmanager = new gymmanager();
-    int result = gymmanager.add(2, 3);
-    assertEquals(5, result);
   }
 
 }
