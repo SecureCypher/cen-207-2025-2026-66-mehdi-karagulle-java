@@ -130,6 +130,18 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.6</version>
 		</dependency>
+		<dependency>
+    		<groupId>org.junit.jupiter</groupId>
+    		<artifactId>junit-jupiter-api</artifactId>
+    		<version>5.10.0</version>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.junit.jupiter</groupId>
+    		<artifactId>junit-jupiter-engine</artifactId>
+    		<version>5.10.0</version>
+    		<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -251,8 +263,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>
-										com.ibrahim.mehdi.gymmanager.gymmanagerApp</mainClass>
+									<mainClass>com.ibrahim.mehdi.gymmanager.GymManagerApp</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
