@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ibrahim.mehdi.gymmanager.gymmanagerApp;
+import com.ibrahim.mehdi.gymmanager.GymManagerApp;
 
 
 /**
@@ -29,7 +29,7 @@ import com.ibrahim.mehdi.gymmanager.gymmanagerApp;
 @details The gymmanagerAppTest class provides test methods to verify the behavior of the gymmanagerApp class. It includes test methods for successful execution, object creation, and error handling scenarios.
 @author ugur.coruh
 */
-public class gymmanagerAppTest {
+public class GymManagerAppTest {
 
   /**
    * @brief This method is executed once before all test methods.
