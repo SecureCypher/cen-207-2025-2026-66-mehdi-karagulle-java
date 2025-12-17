@@ -1,6 +1,6 @@
 /**
  * @file GymManagerApp.java
- * @brief Main GUI application for Gym Management System - FINAL VERSION
+ * @brief Main GUI application - WITHOUT QUEUE (for troubleshooting)
  */
 package com.ibrahim.mehdi.gymmanager;
 
@@ -16,49 +16,40 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Main GUI Application - FINAL VERSION
+ * Main GUI Application - Simple Working Version
  */
 public class GymManagerApp extends JFrame {
     private static final long serialVersionUID = 1L;
     
-    // Modern color scheme
-    private static final Color PRIMARY_COLOR = new Color(33, 150, 243);      // Blue
-    private static final Color SUCCESS_COLOR = new Color(76, 175, 80);       // Green
-    private static final Color DANGER_COLOR = new Color(244, 67, 54);        // Red
-    private static final Color WARNING_COLOR = new Color(255, 152, 0);       // Orange
-    private static final Color INFO_COLOR = new Color(0, 188, 212);          // Cyan
-    private static final Color DARK_COLOR = new Color(66, 66, 66);           // Dark Gray
+    private static final Color PRIMARY_COLOR = new Color(33, 150, 243);
+    private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
+    private static final Color DANGER_COLOR = new Color(244, 67, 54);
+    private static final Color WARNING_COLOR = new Color(255, 152, 0);
+    private static final Color INFO_COLOR = new Color(0, 188, 212);
     
     private GymService gymService;
     private JTabbedPane tabbedPane;
     
-    // Member tab
     private JTextField memberNameField, memberSurnameField, memberPhoneField, memberEmailField;
     private JComboBox<Member.MembershipType> memberTypeCombo;
     private JLabel priceLabel;
     private JTable memberTable;
     private DefaultTableModel memberTableModel;
     
-    // Appointment tab
     private JTextField appointmentMemberIdField, appointmentServiceField;
     private JSpinner appointmentPrioritySpinner;
     private JTable appointmentTable;
     private DefaultTableModel appointmentTableModel;
     
-    // Equipment tab
     private JTextField equipNameField, equipTypeField, equipQtyField;
     private JSpinner equipXSpinner, equipYSpinner;
     private JTable equipmentTable;
     private DefaultTableModel equipmentTableModel;
     
-    // Queue tab
     private JTextField queueMemberIdField;
     private JTextArea queueDisplayArea;
     
-    // History tab
     private JTextArea historyDisplayArea;
-    
-    // Statistics tab
     private JTextArea statsDisplayArea;
     
     public GymManagerApp() {
@@ -75,32 +66,30 @@ public class GymManagerApp extends JFrame {
         tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Arial", Font.BOLD, 12));
         
-        tabbedPane.addTab("👥 Members", createMembersPanel());
-        tabbedPane.addTab("📅 Appointments", createAppointmentsPanel());
-        tabbedPane.addTab("🏋️ Equipment", createEquipmentPanel());
-        tabbedPane.addTab("⏳ Queue", createQueuePanel());
-        tabbedPane.addTab("📜 History", createHistoryPanel());
-        tabbedPane.addTab("🔍 Search", createSearchPanel());
-        tabbedPane.addTab("📊 Statistics", createStatisticsPanel());
-        tabbedPane.addTab("ℹ️ About", createAboutPanel());
+        tabbedPane.addTab("Members", createMembersPanel());
+        tabbedPane.addTab("Appointments", createAppointmentsPanel());
+        tabbedPane.addTab("Equipment", createEquipmentPanel());
+        tabbedPane.addTab("Queue", createQueuePanel());
+        tabbedPane.addTab("History", createHistoryPanel());
+        tabbedPane.addTab("Search", createSearchPanel());
+        tabbedPane.addTab("Statistics", createStatisticsPanel());
+        tabbedPane.addTab("About", createAboutPanel());
         
         add(tabbedPane);
         refreshAllDisplays();
     }
     
-    /**
-     * Create styled button
-     */
-    private JButton createStyledButton(String text, Color bgColor, String icon) {
-        JButton button = new JButton(icon + " " + text);
+    private JButton createStyledButton(String text, Color bgColor) {
+        JButton button = new JButton(text);
+        button.setForeground(Color.BLACK);
         button.setBackground(bgColor);
-        button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.BOLD, 12));
-        button.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setPreferredSize(new Dimension(150, 40));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setOpaque(true);
+        button.setBorderPainted(true);
         
-        // Hover effect
         button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 button.setBackground(bgColor.darker());
@@ -116,24 +105,14 @@ public class GymManagerApp extends JFrame {
     private JPanel createMembersPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        panel.setBackground(Color.WHITE);
         
-        // Form panel
         JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBackground(Color.WHITE);
-        formPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(PRIMARY_COLOR, 2),
-            "Add New Member",
-            0, 0,
-            new Font("Arial", Font.BOLD, 14),
-            PRIMARY_COLOR
-        ));
+        formPanel.setBorder(BorderFactory.createTitledBorder("Add New Member"));
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        // Row 0: Name & Surname
         gbc.gridx = 0; gbc.gridy = 0;
         formPanel.add(new JLabel("Name:"), gbc);
         gbc.gridx = 1;
@@ -146,7 +125,6 @@ public class GymManagerApp extends JFrame {
         memberSurnameField = new JTextField(15);
         formPanel.add(memberSurnameField, gbc);
         
-        // Row 1: Phone & Email
         gbc.gridx = 0; gbc.gridy = 1;
         formPanel.add(new JLabel("Phone:"), gbc);
         gbc.gridx = 1;
@@ -159,7 +137,6 @@ public class GymManagerApp extends JFrame {
         memberEmailField = new JTextField(15);
         formPanel.add(memberEmailField, gbc);
         
-        // Row 2: Membership & Price
         gbc.gridx = 0; gbc.gridy = 2;
         formPanel.add(new JLabel("Membership:"), gbc);
         gbc.gridx = 1;
@@ -185,16 +162,14 @@ public class GymManagerApp extends JFrame {
         gbc.gridx = 2;
         formPanel.add(new JLabel("Price:"), gbc);
         gbc.gridx = 3;
-        priceLabel = new JLabel("1,000₺");
+        priceLabel = new JLabel("1,000 TL");
         priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
         priceLabel.setForeground(SUCCESS_COLOR);
         formPanel.add(priceLabel, gbc);
         
-        // Row 3: Buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        buttonPanel.setBackground(Color.WHITE);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         
-        JButton addButton = createStyledButton("Add Member", SUCCESS_COLOR, "➕");
+        JButton addButton = createStyledButton("Add Member", SUCCESS_COLOR);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addMember();
@@ -202,7 +177,7 @@ public class GymManagerApp extends JFrame {
         });
         buttonPanel.add(addButton);
         
-        JButton deleteButton = createStyledButton("Delete Selected", DANGER_COLOR, "🗑️");
+        JButton deleteButton = createStyledButton("Delete Selected", DANGER_COLOR);
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 deleteMember();
@@ -210,7 +185,7 @@ public class GymManagerApp extends JFrame {
         });
         buttonPanel.add(deleteButton);
         
-        JButton refreshButton = createStyledButton("Refresh", PRIMARY_COLOR, "🔄");
+        JButton refreshButton = createStyledButton("Refresh", PRIMARY_COLOR);
         refreshButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 refreshMemberTable();
@@ -224,7 +199,6 @@ public class GymManagerApp extends JFrame {
         
         panel.add(formPanel, BorderLayout.NORTH);
         
-        // Table
         String[] columns = {"ID", "Name", "Surname", "Phone", "Email", "Type", "Price", "Expires", "Active"};
         memberTableModel = new DefaultTableModel(columns, 0) {
             public boolean isCellEditable(int row, int column) { 
@@ -234,28 +208,8 @@ public class GymManagerApp extends JFrame {
         memberTable = new JTable(memberTableModel);
         memberTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         memberTable.setRowHeight(25);
-        memberTable.setFont(new Font("Arial", Font.PLAIN, 12));
-        memberTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
-        memberTable.getTableHeader().setBackground(PRIMARY_COLOR);
-        memberTable.getTableHeader().setForeground(Color.WHITE);
         
-        // Center align numeric columns
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        memberTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        memberTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
-        memberTable.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-        
-        JScrollPane scrollPane = new JScrollPane(memberTable);
-        panel.add(scrollPane, BorderLayout.CENTER);
-        
-        // Info panel
-        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        infoPanel.setBackground(new Color(255, 248, 225));
-        JLabel infoLabel = new JLabel("💡 Select a member row and click 'Delete Selected' to remove");
-        infoLabel.setFont(new Font("Arial", Font.ITALIC, 11));
-        infoPanel.add(infoLabel);
-        panel.add(infoPanel, BorderLayout.SOUTH);
+        panel.add(new JScrollPane(memberTable), BorderLayout.CENTER);
         
         return panel;
     }
@@ -263,14 +217,13 @@ public class GymManagerApp extends JFrame {
     private void updatePriceLabel() {
         Member.MembershipType selected = (Member.MembershipType) memberTypeCombo.getSelectedItem();
         if (selected != null) {
-            String price = String.format("%,d₺", selected.getPrice());
-            priceLabel.setText(price);
+            priceLabel.setText(String.format("%,d TL", selected.getPrice()));
         }
     }
     
     private JPanel createAppointmentsPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         formPanel.add(new JLabel("Member ID:"));
@@ -285,7 +238,7 @@ public class GymManagerApp extends JFrame {
         appointmentPrioritySpinner = new JSpinner(new SpinnerNumberModel(5, 1, 10, 1));
         formPanel.add(appointmentPrioritySpinner);
         
-        JButton createButton = createStyledButton("Create", SUCCESS_COLOR, "➕");
+        JButton createButton = createStyledButton("Create", SUCCESS_COLOR);
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 createAppointment();
@@ -293,7 +246,7 @@ public class GymManagerApp extends JFrame {
         });
         formPanel.add(createButton);
         
-        JButton processButton = createStyledButton("Process Next", PRIMARY_COLOR, "▶️");
+        JButton processButton = createStyledButton("Process Next", PRIMARY_COLOR);
         processButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 processNextAppointment();
@@ -318,7 +271,7 @@ public class GymManagerApp extends JFrame {
     
     private JPanel createEquipmentPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
         JPanel formPanel = new JPanel(new GridLayout(6, 2, 5, 5));
         formPanel.add(new JLabel("Name:"));
@@ -341,7 +294,7 @@ public class GymManagerApp extends JFrame {
         equipYSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 19, 1));
         formPanel.add(equipYSpinner);
         
-        JButton addButton = createStyledButton("Add Equipment", SUCCESS_COLOR, "➕");
+        JButton addButton = createStyledButton("Add Equipment", SUCCESS_COLOR);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addEquipment();
@@ -349,7 +302,7 @@ public class GymManagerApp extends JFrame {
         });
         formPanel.add(addButton);
         
-        JButton refreshButton = createStyledButton("Refresh", PRIMARY_COLOR, "🔄");
+        JButton refreshButton = createStyledButton("Refresh", PRIMARY_COLOR);
         refreshButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 refreshEquipmentTable();
@@ -374,14 +327,14 @@ public class GymManagerApp extends JFrame {
     
     private JPanel createQueuePanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
         JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         formPanel.add(new JLabel("Member ID:"));
         queueMemberIdField = new JTextField(10);
         formPanel.add(queueMemberIdField);
         
-        JButton addButton = createStyledButton("Add to Queue", SUCCESS_COLOR, "➕");
+        JButton addButton = createStyledButton("Add to Queue", SUCCESS_COLOR);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addToQueue();
@@ -389,7 +342,7 @@ public class GymManagerApp extends JFrame {
         });
         formPanel.add(addButton);
         
-        JButton processButton = createStyledButton("Process Next", PRIMARY_COLOR, "▶️");
+        JButton processButton = createStyledButton("Process Next", PRIMARY_COLOR);
         processButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 processFromQueue();
@@ -397,7 +350,7 @@ public class GymManagerApp extends JFrame {
         });
         formPanel.add(processButton);
         
-        JButton refreshButton = createStyledButton("Refresh", INFO_COLOR, "🔄");
+        JButton refreshButton = createStyledButton("Refresh", INFO_COLOR);
         refreshButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 refreshQueueDisplay();
@@ -410,7 +363,6 @@ public class GymManagerApp extends JFrame {
         queueDisplayArea = new JTextArea();
         queueDisplayArea.setEditable(false);
         queueDisplayArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
-        queueDisplayArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panel.add(new JScrollPane(queueDisplayArea), BorderLayout.CENTER);
         
         return panel;
@@ -418,11 +370,11 @@ public class GymManagerApp extends JFrame {
     
     private JPanel createHistoryPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         
-        JButton backButton = createStyledButton("Back", PRIMARY_COLOR, "◀");
+        JButton backButton = createStyledButton("Back", PRIMARY_COLOR);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 navigateHistory(false);
@@ -430,7 +382,7 @@ public class GymManagerApp extends JFrame {
         });
         buttonPanel.add(backButton);
         
-        JButton forwardButton = createStyledButton("Forward", PRIMARY_COLOR, "▶");
+        JButton forwardButton = createStyledButton("Forward", PRIMARY_COLOR);
         forwardButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 navigateHistory(true);
@@ -438,7 +390,7 @@ public class GymManagerApp extends JFrame {
         });
         buttonPanel.add(forwardButton);
         
-        JButton undoButton = createStyledButton("Undo", WARNING_COLOR, "↶");
+        JButton undoButton = createStyledButton("Undo", WARNING_COLOR);
         undoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 performUndo();
@@ -446,20 +398,11 @@ public class GymManagerApp extends JFrame {
         });
         buttonPanel.add(undoButton);
         
-        JButton refreshButton = createStyledButton("Refresh", INFO_COLOR, "🔄");
-        refreshButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                refreshHistoryDisplay();
-            }
-        });
-        buttonPanel.add(refreshButton);
-        
         panel.add(buttonPanel, BorderLayout.NORTH);
         
         historyDisplayArea = new JTextArea();
         historyDisplayArea.setEditable(false);
         historyDisplayArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
-        historyDisplayArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panel.add(new JScrollPane(historyDisplayArea), BorderLayout.CENTER);
         
         return panel;
@@ -467,7 +410,7 @@ public class GymManagerApp extends JFrame {
     
     private JPanel createSearchPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
         JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         formPanel.add(new JLabel("Search Name:"));
@@ -477,17 +420,15 @@ public class GymManagerApp extends JFrame {
         final JTextArea resultArea = new JTextArea();
         resultArea.setEditable(false);
         resultArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        resultArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        JButton searchButton = createStyledButton("Search (KMP)", PRIMARY_COLOR, "🔍");
+        JButton searchButton = createStyledButton("Search (KMP)", PRIMARY_COLOR);
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String term = searchField.getText().trim();
                 if (!term.isEmpty()) {
                     List<Member> results = gymService.searchMemberByName(term);
                     StringBuilder sb = new StringBuilder();
-                    sb.append("🔍 KMP Search: \"").append(term).append("\"\n");
-                    sb.append("═══════════════════════════════════\n\n");
+                    sb.append("KMP Search: \"").append(term).append("\"\n\n");
                     sb.append("Found ").append(results.size()).append(" member(s)\n\n");
                     for (Member m : results) {
                         sb.append(m.toString()).append("\n\n");
@@ -506,9 +447,9 @@ public class GymManagerApp extends JFrame {
     
     private JPanel createStatisticsPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
-        JButton refreshButton = createStyledButton("Refresh Statistics", SUCCESS_COLOR, "📊");
+        JButton refreshButton = createStyledButton("Refresh Statistics", SUCCESS_COLOR);
         refreshButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 refreshStatistics();
@@ -519,7 +460,6 @@ public class GymManagerApp extends JFrame {
         statsDisplayArea = new JTextArea();
         statsDisplayArea.setEditable(false);
         statsDisplayArea.setFont(new Font("Monospaced", Font.BOLD, 13));
-        statsDisplayArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panel.add(new JScrollPane(statsDisplayArea), BorderLayout.CENTER);
         
         return panel;
@@ -533,47 +473,29 @@ public class GymManagerApp extends JFrame {
         aboutText.setEditable(false);
         aboutText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         aboutText.setText(
-            "╔═══════════════════════════════════════════════════════╗\n" +
-            "║     GYM MANAGER - DATA STRUCTURES PROJECT            ║\n" +
-            "╚═══════════════════════════════════════════════════════╝\n\n" +
-            "📚 All 12 Data Structures:\n\n" +
-            "  1. ⛓️  Double Linked List - Member history navigation\n" +
-            "  2. 🔗 XOR Linked List - Workout history\n" +
-            "  3. 🗺️  Sparse Matrix - Equipment location map\n" +
-            "  4. 📚 Stack - Undo operations\n" +
-            "  5. 📋 Queue - Waiting member queue\n" +
-            "  6. 🏔️  Min Heap - Priority appointments\n" +
-            "  7. #️⃣  Hash Table - Fast member lookup\n" +
-            "  8. 🌐 BFS/DFS - Graph traversal\n" +
-            "  9. 🔄 SCC - Strongly Connected Components\n" +
-            "  10. 🔍 KMP - Pattern matching search\n" +
-            "  11. 🗜️  Huffman - Data compression\n" +
-            "  12. 🌳 B+ Tree - Member indexing\n" +
-            "  13. ⚡ Linear Probing - File operations\n\n" +
-            "💰 MEMBERSHIP PRICES:\n\n" +
-            "  • MONTHLY   : 1,000₺  (1 month)\n" +
-            "  • QUARTERLY : 2,700₺  (3 months - 10% discount)\n" +
-            "  • YEARLY    : 9,600₺  (12 months - 20% discount)\n" +
-            "  • VIP       : 15,000₺ (12 months + extras)\n\n" +
-            "📅 CEN207/CE205 - Fall 2025-2026\n" +
-            "👨‍💻 Developers: İbrahim Demirci & Muhammed Mehdi Karagülle\n" +
-            "🏫 Institution: Recep Tayyip Erdoğan University\n"
+            "====================================================\n" +
+            "     GYM MANAGER - DATA STRUCTURES PROJECT         \n" +
+            "====================================================\n\n" +
+            "Course: CEN207 / CE205 Data Structures\n" +
+            "Term: Fall 2025-2026\n\n" +
+            "COURSE INSTRUCTOR:\n" +
+            "  Asst. Prof. Dr. Ugur CORUH\n\n" +
+            "PROJECT TEAM:\n" +
+            "  Ibrahim Demirci\n" +
+            "  Muhammed Mehdi Karagulle\n\n" +
+            "All 12 Data Structures Implemented\n"
         );
         
         panel.add(new JScrollPane(aboutText), BorderLayout.CENTER);
         return panel;
     }
     
-    // Action methods
     private void addMember() {
         try {
             String name = memberNameField.getText().trim();
             String surname = memberSurnameField.getText().trim();
             if (name.isEmpty() || surname.isEmpty()) {
-                JOptionPane.showMessageDialog(this, 
-                    "❌ Name and Surname are required!",
-                    "Validation Error",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Name and Surname required!");
                 return;
             }
             
@@ -583,77 +505,34 @@ public class GymManagerApp extends JFrame {
                 memberEmailField.getText().trim(), type);
             
             JOptionPane.showMessageDialog(this, 
-                "✅ Member Added Successfully!\n\n" +
-                "Name: " + m.getFullName() + "\n" +
-                "Type: " + m.getMembershipType() + "\n" +
-                "Price: " + String.format("%,d₺", m.getMembershipPrice()),
-                "Success",
-                JOptionPane.INFORMATION_MESSAGE);
+                "Member Added!\n" + m.getFullName() + "\nPrice: " + m.getMembershipPrice() + " TL");
             
-            // Clear form
             memberNameField.setText("");
             memberSurnameField.setText("");
             memberPhoneField.setText("");
             memberEmailField.setText("");
-            memberTypeCombo.setSelectedIndex(0);
             
             refreshMemberTable();
-            refreshAllDisplays();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, 
-                "❌ Error: " + ex.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }
     
     private void deleteMember() {
         int selectedRow = memberTable.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, 
-                "⚠️ Please select a member from the table first!",
-                "No Selection",
-                JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a member!");
             return;
         }
         
-        try {
-            int memberId = (Integer) memberTableModel.getValueAt(selectedRow, 0);
-            String memberName = memberTableModel.getValueAt(selectedRow, 1) + " " + 
-                               memberTableModel.getValueAt(selectedRow, 2);
-            
-            int confirm = JOptionPane.showConfirmDialog(this,
-                "🗑️ Are you sure you want to delete this member?\n\n" +
-                "Name: " + memberName + "\n" +
-                "ID: " + memberId + "\n\n" +
-                "This action cannot be undone!",
-                "Confirm Deletion",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-            
-            if (confirm == JOptionPane.YES_OPTION) {
-                boolean success = gymService.deleteMember(memberId);
-                if (success) {
-                    JOptionPane.showMessageDialog(this, 
-                        "✅ Member deleted successfully!\n\n" +
-                        "Deleted: " + memberName,
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
-                    refreshMemberTable();
-                    refreshAllDisplays();
-                } else {
-                    JOptionPane.showMessageDialog(this, 
-                        "❌ Failed to delete member!",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                }
+        int memberId = (Integer) memberTableModel.getValueAt(selectedRow, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "Delete member ID " + memberId + "?");
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (gymService.deleteMember(memberId)) {
+                JOptionPane.showMessageDialog(this, "Member deleted!");
+                refreshMemberTable();
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, 
-                "❌ Error during deletion: " + ex.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
         }
     }
     
@@ -665,25 +544,25 @@ public class GymManagerApp extends JFrame {
             
             Appointment apt = gymService.createAppointment(memberId, service, priority);
             if (apt != null) {
-                JOptionPane.showMessageDialog(this, "✅ Appointment created!");
+                JOptionPane.showMessageDialog(this, "Appointment created!");
                 appointmentMemberIdField.setText("");
                 appointmentServiceField.setText("");
                 refreshAppointmentDisplay();
             } else {
-                JOptionPane.showMessageDialog(this, "❌ Member not found!");
+                JOptionPane.showMessageDialog(this, "Member not found!");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "❌ Invalid input!");
+            JOptionPane.showMessageDialog(this, "Invalid input!");
         }
     }
     
     private void processNextAppointment() {
         Appointment apt = gymService.processNextAppointment();
         if (apt != null) {
-            JOptionPane.showMessageDialog(this, "✅ Processed: " + apt.getMemberName());
+            JOptionPane.showMessageDialog(this, "Processed: " + apt.getMemberName());
             refreshAppointmentDisplay();
         } else {
-            JOptionPane.showMessageDialog(this, "ℹ️ No pending appointments!");
+            JOptionPane.showMessageDialog(this, "No appointments!");
         }
     }
     
@@ -691,7 +570,7 @@ public class GymManagerApp extends JFrame {
         try {
             String name = equipNameField.getText().trim();
             if (name.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "❌ Equipment name required!");
+                JOptionPane.showMessageDialog(this, "Name required!");
                 return;
             }
             
@@ -700,13 +579,13 @@ public class GymManagerApp extends JFrame {
             int y = ((Number) equipYSpinner.getValue()).intValue();
             
             gymService.addEquipment(name, equipTypeField.getText().trim(), qty, x, y);
-            JOptionPane.showMessageDialog(this, "✅ Equipment added!");
+            JOptionPane.showMessageDialog(this, "Equipment added!");
             equipNameField.setText("");
             equipTypeField.setText("");
             equipQtyField.setText("");
             refreshEquipmentTable();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "❌ Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }
     
@@ -716,24 +595,24 @@ public class GymManagerApp extends JFrame {
             Member m = gymService.searchMember(memberId);
             if (m != null) {
                 gymService.addToWaitingQueue(m);
-                JOptionPane.showMessageDialog(this, "✅ Added: " + m.getFullName());
+                JOptionPane.showMessageDialog(this, "Added: " + m.getFullName());
                 queueMemberIdField.setText("");
                 refreshQueueDisplay();
             } else {
-                JOptionPane.showMessageDialog(this, "❌ Member not found!");
+                JOptionPane.showMessageDialog(this, "Member not found!");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "❌ Invalid Member ID!");
+            JOptionPane.showMessageDialog(this, "Invalid ID!");
         }
     }
     
     private void processFromQueue() {
         Member m = gymService.processNextInQueue();
         if (m != null) {
-            JOptionPane.showMessageDialog(this, "✅ Processed: " + m.getFullName());
+            JOptionPane.showMessageDialog(this, "Processed: " + m.getFullName());
             refreshQueueDisplay();
         } else {
-            JOptionPane.showMessageDialog(this, "ℹ️ Queue is empty!");
+            JOptionPane.showMessageDialog(this, "Queue empty!");
         }
     }
     
@@ -748,27 +627,21 @@ public class GymManagerApp extends JFrame {
     private void performUndo() {
         String action = gymService.undo();
         if (action != null) {
-            JOptionPane.showMessageDialog(this, "↶ Undone: " + action);
+            JOptionPane.showMessageDialog(this, "Undone: " + action);
             refreshAllDisplays();
         } else {
-            JOptionPane.showMessageDialog(this, "ℹ️ Nothing to undo!");
+            JOptionPane.showMessageDialog(this, "Nothing to undo!");
         }
     }
     
-    // Refresh methods
     private void refreshMemberTable() {
         memberTableModel.setRowCount(0);
         for (Member m : gymService.getAllMembers()) {
             memberTableModel.addRow(new Object[]{
-                m.getId(), 
-                m.getName(), 
-                m.getSurname(), 
-                m.getPhoneNumber(), 
-                m.getEmail(), 
-                m.getMembershipType(),
-                String.format("%,d₺", m.getMembershipPrice()),
-                m.getMembershipEndDate(),
-                m.isActive() ? "✓" : "✗"
+                m.getId(), m.getName(), m.getSurname(), 
+                m.getPhoneNumber(), m.getEmail(), m.getMembershipType(),
+                m.getMembershipPrice() + " TL", m.getMembershipEndDate(),
+                m.isActive() ? "Yes" : "No"
             });
         }
     }
@@ -795,33 +668,18 @@ public class GymManagerApp extends JFrame {
     }
     
     private void refreshQueueDisplay() {
-        queueDisplayArea.setText(String.format(
-            "╔════════════════════════════════╗\n" +
-            "║   WAITING QUEUE (FIFO)         ║\n" +
-            "╚════════════════════════════════╝\n\n" +
-            "Queue Size: %d member(s)\n",
-            gymService.getQueueSize()
-        ));
+        queueDisplayArea.setText("Queue Size: " + gymService.getQueueSize());
     }
     
     private void refreshHistoryDisplay() {
-        historyDisplayArea.setText(String.format(
-            "╔════════════════════════════════╗\n" +
-            "║   HISTORY (Double Linked List) ║\n" +
-            "╚════════════════════════════════╝\n\n" +
-            "Current: %s\n",
-            gymService.getCurrentHistory()
-        ));
+        historyDisplayArea.setText("Current: " + gymService.getCurrentHistory());
     }
     
     private void refreshStatistics() {
         Map<String, Object> stats = gymService.getStatistics();
-        StringBuilder sb = new StringBuilder();
-        sb.append("╔══════════════════════════════════════╗\n");
-        sb.append("║          SYSTEM STATISTICS            ║\n");
-        sb.append("╚══════════════════════════════════════╝\n\n");
+        StringBuilder sb = new StringBuilder("STATISTICS\n\n");
         for (Map.Entry<String, Object> entry : stats.entrySet()) {
-            sb.append(String.format("%-25s: %s\n", entry.getKey(), entry.getValue()));
+            sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
         }
         statsDisplayArea.setText(sb.toString());
     }
@@ -835,16 +693,13 @@ public class GymManagerApp extends JFrame {
         refreshStatistics();
     }
     
-    /**
-     * Main method - Application entry point
-     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (Exception e) {
-                    // Use default look and feel
+                    e.printStackTrace();
                 }
                 GymManagerApp app = new GymManagerApp();
                 app.setVisible(true);

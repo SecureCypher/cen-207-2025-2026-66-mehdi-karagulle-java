@@ -35,6 +35,15 @@
 				<role>Developer</role>
 				<role>Designer</role>
 			</roles>
+		</developer>	
+		<developer>
+        	<name>Asst. Prof. Dr. Ugur CORUH</name>
+        	<organization>RTEU</organization>
+        	<email>ugur.coruh@erdogan.edu.tr</email>
+        	<roles>
+            	<role>Course Instructor</role>
+            	<role>Project Supervisor</role>
+        	</roles>
 		</developer>
 	</developers>
 	<contributors>
