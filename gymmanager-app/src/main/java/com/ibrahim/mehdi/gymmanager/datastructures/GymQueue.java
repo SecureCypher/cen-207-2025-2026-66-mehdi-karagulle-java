@@ -1,10 +1,13 @@
 package com.ibrahim.mehdi.gymmanager.datastructures;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
  * Queue implementation (FIFO) for waiting member queue.
+ * Enhanced with toList() method for queue management
  * 
  * @param <T> Type of elements
  * @author ibrahim.mehdi
@@ -44,7 +47,7 @@ public class GymQueue<T> implements Serializable {
      * @param data Element to add
      */
     public void enqueue(T data) {
-        Node<T> newNode = new Node<>(data);
+        Node<T> newNode = new Node<T>(data);
         
         if (rear == null) {
             front = rear = newNode;
@@ -104,6 +107,23 @@ public class GymQueue<T> implements Serializable {
      */
     public int size() {
         return size;
+    }
+    
+    /**
+     * Convert queue to list (CRITICAL - for QueueManager)
+     * 
+     * @return List of all elements in queue
+     */
+    public List<T> toList() {
+        List<T> list = new ArrayList<T>();
+        Node<T> current = front;
+        
+        while (current != null) {
+            list.add(current.data);
+            current = current.next;
+        }
+        
+        return list;
     }
     
     /**
