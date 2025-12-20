@@ -1,66 +1,48 @@
-/**
-
-@file gymmanagerAppTest.java
-@brief This file contains the test cases for the gymmanagerApp class.
-@details This file includes test methods to validate the functionality of the gymmanagerApp class. It uses JUnit for unit testing.
-*/
 package com.ibrahim.mehdi.gymmanager;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.ibrahim.mehdi.gymmanager.gymmanagerApp;
-
-
-/**
-
-@class gymmanagerAppTest
-@brief This class represents the test class for the gymmanagerApp class.
-@details The gymmanagerAppTest class provides test methods to verify the behavior of the gymmanagerApp class. It includes test methods for successful execution, object creation, and error handling scenarios.
-@author ugur.coruh
-*/
-public class gymmanagerAppTest {
-
-  /**
-   * @brief This method is executed once before all test methods.
-   * @throws Exception
-   */
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-  }
-
-  /**
-   * @brief This method is executed once after all test methods.
-   * @throws Exception
-   */
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {
-  }
-
-  /**
-   * @brief This method is executed before each test method.
-   * @throws Exception
-   */
-  @Before
-  public void setUp() throws Exception {
-  }
-
-  /**
-   * @brief This method is executed after each test method.
-   * @throws Exception
-   */
-  @After
-  public void tearDown() throws Exception {
-  }
-
+@DisplayName("GymManagerApp Tests")
+public class GymmanagerAppTest {
+    
+    private GymManagerApp app;
+    
+    @BeforeEach
+    public void setUp() {
+        // Simplified - just create app without showing it
+        app = new GymManagerApp();
+    }
+    
+    @AfterEach
+    public void tearDown() {
+        if (app != null) {
+            app.dispose();
+        }
+    }
+    
+    @Test
+    @DisplayName("Should create application")
+    public void testApplicationCreation() {
+        assertNotNull(app);
+    }
+    
+    @Test
+    @DisplayName("Should have title")
+    public void testTitle() {
+        String title = app.getTitle();
+        
+        assertNotNull(title);
+        assertTrue(title.contains("Gym Manager") || title.contains("Data Structures"));
+    }
+    
+    @Test
+    @DisplayName("Should have correct size")
+    public void testSize() {
+        int width = app.getWidth();
+        int height = app.getHeight();
+        
+        assertTrue(width >= 1200);
+        assertTrue(height >= 700);
+    }
 }

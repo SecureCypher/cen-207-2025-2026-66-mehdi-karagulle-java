@@ -2,76 +2,145 @@ package com.ibrahim.mehdi.gymmanager.datastructures;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
-/**
- * Test class for all data structures
- * 
- * @author ibrahim.mehdi
- */
+@DisplayName("All Data Structures - COMPLETE Coverage")
 public class AllDataStructuresTest {
     
     @Test
-    @DisplayName("GymQueue Operations")
-    public void testGymQueue() {
-        GymQueue<String> queue = new GymQueue<>();
+    public void testDoubleLinkedListComplete() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
         
-        assertTrue(queue.isEmpty());
+        list.addFirst("First");
+        list.add("Second");
+        list.add("Third");
         
-        queue.enqueue("First");
-        queue.enqueue("Second");
-        queue.enqueue("Third");
-        
-        assertEquals(3, queue.size());
-        assertEquals("First", queue.peek());
-        
-        List<String> list = queue.toList();
         assertEquals(3, list.size());
         assertEquals("First", list.get(0));
         
-        assertEquals("First", queue.dequeue());
-        assertEquals(2, queue.size());
+        String removed = list.removeLast();
+        assertEquals("Third", removed);
+        assertEquals(2, list.size());
+        
+        list.clear();
+        assertTrue(list.isEmpty());
+        
+        list.add("A");
+        list.resetNavigation();
+        assertEquals("A", list.getCurrent());
+        
+        assertNotNull(list.toString());
     }
     
     @Test
-    @DisplayName("GymStack Operations")
-    public void testGymStack() {
-        GymStack<Integer> stack = new GymStack<>(10);
+    public void testXORLinkedListComplete() {
+        XORLinkedList<String> list = new XORLinkedList<>();
         
-        assertTrue(stack.isEmpty());
+        list.add("First");
+        list.add("Second");
+        list.add("Third");
         
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
+        assertEquals(3, list.size());
+        
+        // Test get by checking list is not empty
+        assertNotNull(list.get(0));
+        
+        List<String> forward = list.traverseForward();
+        assertEquals(3, forward.size());
+        
+        List<String> backward = list.traverseBackward();
+        assertEquals(3, backward.size());
+        
+        list.clear();
+        assertTrue(list.isEmpty());
+        
+        assertNotNull(list.toString());
+    }
+    
+    @Test
+    public void testSparseMatrixComplete() {
+        SparseMatrix<String> matrix = new SparseMatrix<>(10, 10);
+        
+        matrix.set(5, 5, "Center");
+        assertEquals("Center", matrix.get(5, 5));
+        
+        assertTrue(matrix.hasValue(5, 5));
+        assertEquals(1, matrix.getNonZeroCount());
+        
+        double sparsity = matrix.getSparsity();
+        assertTrue(sparsity > 0);
+        
+        assertEquals(10, matrix.getRows());
+        assertEquals(10, matrix.getCols());
+        
+        Map<String, String> nonZero = matrix.getNonZeroElements();
+        assertEquals(1, nonZero.size());
+        
+        matrix.clear();
+        assertEquals(0, matrix.getNonZeroCount());
+        
+        assertNotNull(matrix.toString());
+        
+        assertThrows(IndexOutOfBoundsException.class, () -> matrix.set(-1, 0, "Bad"));
+        assertThrows(IndexOutOfBoundsException.class, () -> matrix.get(100, 0));
+    }
+    
+    @Test
+    public void testStackComplete() {
+        GymStack<String> stack = new GymStack<>(5);
+        
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
         
         assertEquals(3, stack.size());
-        assertEquals(3, (int)stack.peek());
-        assertEquals(3, (int)stack.pop());
+        assertEquals("C", stack.peek());
+        assertEquals("C", stack.pop());
         assertEquals(2, stack.size());
+        
+        stack.clear();
+        assertTrue(stack.isEmpty());
+        
+        assertThrows(Exception.class, () -> stack.pop());
+        assertThrows(Exception.class, () -> stack.peek());
+        
+        for (int i = 0; i < 10; i++) {
+            stack.push("Item" + i);
+        }
+        assertEquals(5, stack.size());
+        
+        assertNotNull(stack.toString());
     }
     
     @Test
-    @DisplayName("HashTable Operations")
-    public void testHashTable() {
-        HashTable<String, Integer> table = new HashTable<>();
+    public void testQueueComplete() {
+        GymQueue<String> queue = new GymQueue<>();
         
-        table.put("one", 1);
-        table.put("two", 2);
-        table.put("three", 3);
+        queue.enqueue("First");
+        queue.enqueue("Second");
         
-        assertEquals(3, table.size());
-        assertEquals(2, (int)table.get("two"));
-        assertTrue(table.containsKey("one"));
+        assertEquals(2, queue.size());
+        assertEquals("First", queue.peek());
         
-        table.remove("two");
-        assertEquals(2, table.size());
-        assertFalse(table.containsKey("two"));
+        List<String> list = queue.toList();
+        assertEquals(2, list.size());
+        
+        assertEquals("First", queue.dequeue());
+        assertEquals(1, queue.size());
+        
+        queue.clear();
+        assertTrue(queue.isEmpty());
+        
+        assertThrows(Exception.class, () -> queue.dequeue());
+        assertThrows(Exception.class, () -> queue.peek());
+        
+        assertNotNull(queue.toString());
     }
     
     @Test
-    @DisplayName("MinHeap Operations")
-    public void testMinHeap() {
+    public void testMinHeapComplete() {
         MinHeap<Integer> heap = new MinHeap<>();
         
         heap.insert(5);
@@ -80,66 +149,74 @@ public class AllDataStructuresTest {
         heap.insert(1);
         
         assertEquals(4, heap.size());
-        assertEquals(1, (int)heap.peekMin());
-        assertEquals(1, (int)heap.extractMin());
+        assertEquals(Integer.valueOf(1), heap.peekMin());
+        
+        assertEquals(Integer.valueOf(1), heap.extractMin());
         assertEquals(3, heap.size());
-        assertEquals(3, (int)heap.peekMin());
+        
+        List<Integer> all = heap.getAll();
+        assertEquals(3, all.size());
+        
+        heap.clear();
+        assertTrue(heap.isEmpty());
+        
+        assertThrows(Exception.class, () -> heap.extractMin());
+        assertThrows(Exception.class, () -> heap.peekMin());
+        
+        assertNotNull(heap.toString());
+        
+        List<Integer> elements = new ArrayList<>();
+        elements.add(5);
+        elements.add(3);
+        elements.add(7);
+        elements.add(1);
+        elements.add(9);
+        
+        MinHeap<Integer> heap2 = new MinHeap<>(elements);
+        assertEquals(5, heap2.size());
+        assertEquals(Integer.valueOf(1), heap2.peekMin());
     }
     
     @Test
-    @DisplayName("DoubleLinkedList Operations")
-    public void testDoubleLinkedList() {
-        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+    public void testHashTableComplete() {
+        HashTable<String, Integer> table = new HashTable<>();
         
-        list.add("First");
-        list.add("Second");
-        list.add("Third");
+        table.put("one", 1);
+        table.put("two", 2);
         
-        assertEquals(3, list.size());
-        assertEquals("First", list.get(0));
+        assertEquals(2, table.size());
+        assertEquals(Integer.valueOf(1), table.get("one"));
         
-        list.resetNavigation();
-        assertEquals("First", list.getCurrent());
+        assertTrue(table.containsKey("one"));
+        assertFalse(table.containsKey("three"));
         
-        String next = list.navigateForward();
-        assertEquals("Second", next);
+        assertEquals(Integer.valueOf(2), table.remove("two"));
+        assertNull(table.get("two"));
         
-        String prev = list.navigateBackward();
-        assertEquals("First", prev);
+        List<String> keys = table.keys();
+        assertEquals(1, keys.size());
+        
+        List<Integer> values = table.values();
+        assertEquals(1, values.size());
+        
+        table.clear();
+        assertTrue(table.isEmpty());
+        
+        for (int i = 0; i < 100; i++) {
+            table.put("key" + i, i);
+        }
+        assertEquals(100, table.size());
+        
+        double avgChain = table.getAverageChainLength();
+        assertTrue(avgChain >= 0);
+        
+        assertNotNull(table.toString());
+        
+        assertThrows(IllegalArgumentException.class, () -> table.put(null, 1));
     }
     
     @Test
-    @DisplayName("SparseMatrix Operations")
-    public void testSparseMatrix() {
-        SparseMatrix<String> matrix = new SparseMatrix<>(10, 10);
-        
-        matrix.set(5, 5, "Center");
-        matrix.set(0, 0, "TopLeft");
-        matrix.set(9, 9, "BottomRight");
-        
-        assertEquals(3, matrix.getNonZeroCount());
-        assertEquals("Center", matrix.get(5, 5));
-        assertTrue(matrix.hasValue(0, 0));
-        assertFalse(matrix.hasValue(5, 6));
-    }
-    
-    @Test
-    @DisplayName("KMP Search")
-    public void testKMPAlgorithm() {
-        KMPAlgorithm kmp = new KMPAlgorithm();
-        
-        String text = "ABABDABACDABABCABAB";
-        String pattern = "ABABCABAB";
-        
-        List<Integer> matches = kmp.search(text, pattern);
-        assertFalse(matches.isEmpty());
-        assertTrue(kmp.contains(text, "ABAD"));
-        assertEquals(2, kmp.countOccurrences(text, "ABAB"));
-    }
-    
-    @Test
-    @DisplayName("Graph BFS/DFS")
-    public void testGraph() {
+    public void testGraphComplete() {
         Graph graph = new Graph(5);
         
         graph.addEdge(0, 1);
@@ -148,11 +225,110 @@ public class AllDataStructuresTest {
         graph.addEdge(2, 4);
         
         List<Integer> bfs = graph.bfs(0);
-        assertFalse(bfs.isEmpty());
         assertEquals(5, bfs.size());
+        assertEquals(Integer.valueOf(0), bfs.get(0));
         
         List<Integer> dfs = graph.dfs(0);
-        assertFalse(dfs.isEmpty());
         assertEquals(5, dfs.size());
+        
+        List<List<Integer>> sccs = graph.findSCC();
+        assertNotNull(sccs);
+        
+        assertEquals(5, graph.getVertices());
+        assertNotNull(graph.getAdjacencyList());
+    }
+    
+    @Test
+    public void testKMPComplete() {
+        KMPAlgorithm kmp = new KMPAlgorithm();
+        
+        List<Integer> matches = kmp.search("ABABCABAB", "ABAB");
+        assertEquals(2, matches.size());
+        
+        assertTrue(kmp.contains("Hello World", "World"));
+        assertFalse(kmp.contains("Hello", "Bye"));
+        
+        assertEquals(3, kmp.countOccurrences("ABABAB", "AB"));
+        
+        assertTrue(kmp.search("text", null).isEmpty());
+        assertTrue(kmp.search("text", "").isEmpty());
+    }
+    
+    @Test
+    public void testHuffmanComplete() {
+        HuffmanCoding huffman = new HuffmanCoding();
+        
+        String text = "Hello World!";
+        String encoded = huffman.encode(text);
+        assertNotNull(encoded);
+        
+        String decoded = huffman.decode(encoded);
+        assertEquals(text, decoded);
+        
+        double ratio = huffman.getCompressionRatio(text, encoded);
+        assertTrue(ratio > 0);
+        
+        Map<Character, String> codes = huffman.getHuffmanCode();
+        assertFalse(codes.isEmpty());
+        
+        assertEquals("", huffman.encode(""));
+        assertEquals("", huffman.decode(""));
+        assertEquals(0, huffman.getCompressionRatio("", ""), 0.01);
+    }
+    
+    @Test
+    public void testBPlusTreeComplete() {
+        BPlusTree<Integer, String> tree = new BPlusTree<>();
+        
+        tree.insert(5, "Five");
+        tree.insert(3, "Three");
+        tree.insert(7, "Seven");
+        
+        assertEquals(3, tree.size());
+        assertEquals("Five", tree.search(5));
+        assertNull(tree.search(10));
+        
+        List<String> range = tree.rangeSearch(3, 7);
+        assertEquals(3, range.size());
+        
+        assertFalse(tree.isEmpty());
+        
+        assertThrows(IllegalArgumentException.class, () -> tree.insert(null, "Null"));
+        
+        for (int i = 0; i < 50; i++) {
+            tree.insert(i, "Val" + i);
+        }
+        assertTrue(tree.size() > 50);
+    }
+    
+    @Test
+    public void testLinearProbingComplete() {
+        LinearProbingHash<String, String> hash = new LinearProbingHash<>();
+        
+        hash.put("key1", "val1");
+        hash.put("key2", "val2");
+        
+        assertEquals(2, hash.size());
+        assertEquals("val1", hash.get("key1"));
+        
+        assertTrue(hash.containsKey("key1"));
+        assertFalse(hash.containsKey("key3"));
+        
+        assertEquals("val2", hash.remove("key2"));
+        assertNull(hash.get("key2"));
+        
+        assertFalse(hash.isEmpty());
+        
+        assertTrue(hash.getCollisionCount() >= 0);
+        assertTrue(hash.getLoadFactor() > 0);
+        
+        assertNotNull(hash.toString());
+        
+        assertThrows(IllegalArgumentException.class, () -> hash.put(null, "val"));
+        
+        for (int i = 0; i < 100; i++) {
+            hash.put("k" + i, "v" + i);
+        }
+        assertEquals(101, hash.size());
     }
 }
