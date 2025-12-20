@@ -115,20 +115,27 @@ public class GymManagerApp extends JFrame {
     
     private JButton createStyledButton(String text, Color bgColor) {
         JButton button = new JButton(text);
-        button.setForeground(Color.WHITE);
+        
+        // CRITICAL: Set properties in this specific order!
         button.setBackground(bgColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);              // MUST be true for background color
+        button.setBorderPainted(false);      // Remove system border
         button.setFocusPainted(false);
+        button.setContentAreaFilled(true);   // Ensure background is filled
         button.setFont(new Font("Arial", Font.BOLD, 13));
         button.setPreferredSize(new Dimension(160, 40));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setOpaque(true);
-        button.setBorderPainted(false);
         button.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
         
+        // Hover effect with brighter color
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
-                button.setBackground(bgColor.darker());
+                button.setBackground(bgColor.brighter());
             }
+            
+            @Override
             public void mouseExited(MouseEvent e) {
                 button.setBackground(bgColor);
             }
@@ -828,10 +835,10 @@ public class GymManagerApp extends JFrame {
             "Submission Deadline: February 2, 2026\n\n" +
             "📞 CONTACT\n" +
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
-            "GitHub: https://github.com/SecureCypher/cen-207-2025-2026-66-mehdi-karagulle-java\n" +
-            "Email: muhammedmehdi_karagulle24@erdogan.edu.tr----ibrahim_demirci24@erdogan.edu.tr\n\n" +
+            "GitHub: https://github.com/YOUR_REPO\n" +
+            "Email: contact@example.com\n\n" +
             "════════════════════════════════════════════════════════════════════\n" +
-            "                        © 2026 - All Rights Reserved                \n" +
+            "                        © 2024 - All Rights Reserved                \n" +
             "════════════════════════════════════════════════════════════════════\n"
         );
         
@@ -1155,9 +1162,15 @@ public class GymManagerApp extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    // Use Metal Look and Feel for consistent button colors across platforms
+                    UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+                    
+                    // Alternative: Use Nimbus for modern look
+                    // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                    
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    // If Metal LAF fails, use default
+                    System.err.println("Could not set Look and Feel: " + e.getMessage());
                 }
                 GymManagerApp app = new GymManagerApp();
                 app.setVisible(true);
