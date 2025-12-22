@@ -1165,11 +1165,9 @@ public class GymManagerApp extends JFrame {
                     // Use Metal Look and Feel for consistent button colors across platforms
                     UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
                     
-                    // Alternative: Use Nimbus for modern look
-                    // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-                    
+                 
                 } catch (Exception e) {
-                    // If Metal LAF fails, use default
+               
                     System.err.println("Could not set Look and Feel: " + e.getMessage());
                 }
                 GymManagerApp app = new GymManagerApp();
