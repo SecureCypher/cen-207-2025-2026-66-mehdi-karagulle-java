@@ -148,15 +148,17 @@ public class GymServiceTest {
     
     @Test
     public void testWorkoutHistory() {
-        // Just verify we can call these methods without errors
-        service.addWorkoutRecord("Test cardio session");
-        service.addWorkoutRecord("Test strength session");
+        // SAFE: Just add records and verify size - NO get(), NO iteration!
+        service.addWorkoutRecord("Session1");
+        service.addWorkoutRecord("Session2");
+        service.addWorkoutRecord("Session3");
         
         List<String> history = service.getWorkoutHistory();
-        assertNotNull(history);
         
-        // History should contain at least something (sample data or our additions)
-        assertTrue(history.size() > 0);
+        // Only verify list exists and has items
+        assertNotNull(history);
+        assertTrue(history.size() >= 3);
+        assertTrue(history.size() < 1000);
     }
     
     @Test

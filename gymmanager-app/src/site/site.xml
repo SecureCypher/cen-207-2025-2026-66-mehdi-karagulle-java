@@ -36,44 +36,39 @@
 
 	<body>
 		<head>gymmanager App</head>
-		<!-- Add any additional meta tags, CSS files, or JavaScript files -->
 
 		<menu name="Overview">
-				<item name="Introduction" href="index.html" />
-				<item name="README.md" href="readme.html" />
-				<item name="Overiew Markdown" href="overview.html" />
-				<item name="Project Info" href="project-info.html" />
-				<item name="Project Summary" href="summary.html" />
-				<item name="Project Team" href="team.html" />
-				<item name="GitHub Repository" href="https://github.com/ucoruh/eclipse-java-maven-template" />
+			<item name="Introduction" href="index.html" />
+			<item name="README.md" href="readme.html" />
+			<item name="Overview Markdown" href="overview.html" />
+			<item name="Project Info" href="project-info.html" />
+			<item name="Project Summary" href="summary.html" />
+			<item name="Project Team" href="team.html" />
+			<item name="GitHub Repository" href="https://github.com/ucoruh/eclipse-java-maven-template" />
 		</menu>
 
 		<menu name="Development">
-				<item name="Source Code" href="scm.html" />
-				<item name="Dependencies" href="dependency-info.html" />
-				<item name="Issue Tracker" href="issue-management.html" />
-				<item name="Distribution Management" href="distribution-management.html" />
-				<!-- Add more items for other HTML pages if needed -->
+			<item name="Source Code" href="scm.html" />
+			<item name="Dependencies" href="dependency-info.html" />
+			<item name="Issue Tracker" href="issue-management.html" />
+			<item name="Distribution Management" href="distribution-management.html" />
 		</menu>
 
 		<menu name="Build">
-				<item name="CI Management" href="ci-management.html" />
-				<item name="Build Dependencies" href="dependencies.html" />
-				<item name="Plugin Management" href="plugin-management.html" />
-				<item name="Build Plugins" href="plugins.html" />
-				<!-- Add more items for other HTML pages if needed -->
+			<item name="CI Management" href="ci-management.html" />
+			<item name="Build Dependencies" href="dependencies.html" />
+			<item name="Plugin Management" href="plugin-management.html" />
+			<item name="Build Plugins" href="plugins.html" />
 		</menu>
 
 		<menu name="Test Coverage">
-				<item name="JaCoCo Report" href="./jacoco/index.html" />
-				<item name="Report Generator" href="./coveragereport/index.html" />
-				<!-- Add more items for other HTML pages if needed -->
+			<item name="JaCoCo Report" href="./jacoco/index.html" />
+			<item name="Report Generator" href="./coveragereport/index.html" />
 		</menu>
-		
-				<menu name="Document Coverage">
-				<item name="Doxygen Report" href="./doxygen/html/index.html" />
-				<item name="Coverxygen Report" href="./coverxygen/index.html" />
-				<!-- Add more items for other HTML pages if needed -->
+
+		<menu name="Document Coverage">
+			<item name="Doxygen Report" href="./doxygen/html/index.html" />
+			<item name="Coverxygen Report" href="./coverxygen/index.html" />
 		</menu>
 
 		<footer><![CDATA[All rights reserved.]]></footer>
