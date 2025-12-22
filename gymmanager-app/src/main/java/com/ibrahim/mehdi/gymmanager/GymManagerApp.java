@@ -831,14 +831,15 @@ public class GymManagerApp extends JFrame {
             "• Object-oriented design principles\n\n" +
             "📅 PROJECT TIMELINE\n" +
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
-            "Development Period: October 2024 - December 2024\n" +
+            "Development Period: October 2025 - December 2025\n" +
             "Submission Deadline: February 2, 2026\n\n" +
             "📞 CONTACT\n" +
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
             "GitHub: https://github.com/YOUR_REPO\n" +
-            "Email: contact@example.com\n\n" +
+            "Email: muhammedmehdi_karagulle24@erdogan.edu.tr\n\n"
+            + "ibrahim_demirci24@erdogan.edu.tr/n/n" +
             "════════════════════════════════════════════════════════════════════\n" +
-            "                        © 2024 - All Rights Reserved                \n" +
+            "                        © 2025 - All Rights Reserved                \n" +
             "════════════════════════════════════════════════════════════════════\n"
         );
         
