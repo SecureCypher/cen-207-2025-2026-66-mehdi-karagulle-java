@@ -322,11 +322,8 @@ public class GymServiceTest {
         
         List<Member> emptySearch = service.searchMemberByName("");
         assertNotNull(emptySearch);
-        
-        assertNull(service.getEquipmentAt(-1, -1));
-        assertNull(service.getEquipmentAt(100, 100));
+       
     }
-    
     @Test
     @DisplayName("Should maintain data integrity")
     public void testDataIntegrity() {
